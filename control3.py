@@ -20,3 +20,5 @@ while True:
     except usb.core.USBError as e:
         if e.args == ('Operation timed out',):
             continue
+    except ValueError:
+        print("\n\nNão tem DESCRIPTOR\n\n")
