@@ -16,3 +16,11 @@ Por isso é necessário
 2. which python - pega o caminho do python deste env - vamos chamar de <CAMINHO_PYTHON>
 3. sudo <CAMINHO_PYTHON> <CAMINHO_PROJETO>/linux_teste/read_barcode_scanner/read_barcode_scanner.py
 
+
+### TODO 31/08
+
+* Resolver B.O Bus e Address dinâmico.
+* Verificar validade do código de barras (tamanho).
+* Alterar print para gravação em arquivo por leitor.
+* Ajeitar o fluxo e finalização do programa ao invés do Ctrl+C
+
