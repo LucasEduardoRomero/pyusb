@@ -1,0 +1,12 @@
+sudo pipenv run --python /home/bingo/.local/share/virtualenvs/pyusb-QbKXvbMB/bin/python 
+'python /home/bingo/projetos/pyusb/linux_teste/read_barcode_scanner/read_barcode_scanner.py'
+
+
+/home/bingo/.local/share/virtualenvs/pyusb-QbKXvbMB/bin/python /home/bingo/projetos/pyusb/linux_teste/read_barcode_scanner/read_barcode_scanner.py
+
+
+
+sudo /home/bingo/.local/share/virtualenvs/pyusb-QbKXvbMB/bin/python /home/bingo/projetos/pyusb/linux_teste/read_barcode_scanner/teste.py
+
+sudo /home/bingo/.local/share/virtualenvs/pyusb-QbKXvbMB/bin/python /home/bingo/projetos/pyusb/control2.py
+sudo sudo /home/bingo/.local/share/virtualenvs/pyusb-QbKXvbMB/bin/python /home/bingo/projetos/pyusb/linux_teste/read_barcode_scanner/teste.py
