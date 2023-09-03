@@ -14,24 +14,22 @@ import sys
 
 CONFIG_FILE_PATH = '/home/bingo/projetos/pyusb/linux_teste/read_multiple/list.json'
 
-def lecture_code_barre(device_info):
-    VENDOR_ID = 0xffff
-    PRODUCT_ID = 0x0035
+def lecture_code_barre(device, prefix):
     DATA_SIZE = 16 # 224
     NO_SCAN_CODE = {0x1E:'1', 0x1F:'2', 0x20:'3', 0x21:'4', 0x22:'5', 0x23:'6', 0x24:'7'
         , 0x25:'8', 0x26:'9', 0x27:'0', 0x28:'', } # 28=enter
 
-    prefix = device_info['prefix']
-    id_vendor = int(device_info['id_vendor'], 16)
-    id_product = int(device_info['id_product'], 16)
-    bus = int(device_info['bus'])
-    address= int(device_info['address'])
+    #prefix = device_info['prefix']
+    #id_vendor = int(device_info['id_vendor'], 16)
+    #id_product = int(device_info['id_product'], 16)
+    #bus = int(device_info['bus'])
+    #address= int(device_info['address'])
     #print(id_vendor)
     #print(id_product)
     #print(bus)
     #print(address)
-    device = usb.core.find(idVendor=id_vendor, idProduct=id_product, bus=bus, address=address)
-    print(device.iProduct)
+    #device = usb.core.find(idVendor=id_vendor, idProduct=id_product, bus=bus, address=address)
+    #print(device.iProduct)
     if device is None:
         print("not found")
         sys.exit("Could not find Id System Barcode Reader.")
@@ -83,16 +81,20 @@ if __name__ == '__main__':
     format = "%(asctime)s: %(message)s"
     logging.basicConfig(format=format, level=logging.INFO, datefmt="%H:%M:%S")
 
-    selected_devices = []
+    selected_configs = []
     thread_list = []
     with open(CONFIG_FILE_PATH, 'r') as devices_file:
-        selected_devices = json.load(devices_file)
-    
-    for dev in selected_devices:
-        t = threading.Thread(target=lecture_code_barre, args=(dev,))
-        thread_list.append(t)
-        # TODO -> VER COMO FECHAR AS THREADS CORRETAMENTE
-        t.start()
+        selected_configs = json.load(devices_file)
 
-
-
+    devices = usb.core.find(find_all=True)
+    for idx, dev in enumerate(devices):
+        dev_info = dev
+        for config in selected_configs:
+            idVendor = int(config['id_vendor'], 16)
+            idProduct = int(config['id_product'], 16)
+            if (dev_info.idVendor == idVendor and dev_info.idProduct == idProduct):
+                t = threading.Thread(target=lecture_code_barre, args=(dev, f'leitor{idx+1}',))
+                thread_list.append(t)
+                # TODO -> VER COMO FECHAR AS THREADS CORRETAMENTE
+                t.start()
+                break
